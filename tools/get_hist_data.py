@@ -15,11 +15,9 @@ import numpy as np
 
 class Get_hist_data:
 
-    def __init__(self, subs_path, cal_path, start_dt, end_dt):
+    def __init__(self, subs_path, cal_path):
         self.subs_path = subs_path
         self.cal_path = cal_path
-        self.start_dt = start_dt
-        self.end_dt = end_dt
 
     def get_trade_cal(self):
         cal_df = pd.read_csv(self.cal_path, index_col=0)
@@ -57,8 +55,5 @@ class Get_hist_data:
 if __name__ == "__main__":
     subs_path = './subscriptions.ini'
     cal_path = './download_calendar.csv'
-
-    start_dt = datetime(2019, 1, 4)
-    end_dt = datetime(2019, 1, 4)
-    get_data = Get_hist_data(subs_path, cal_path, start_dt, end_dt)
+    get_data = Get_hist_data(subs_path, cal_path)
     get_data.get_hist()
