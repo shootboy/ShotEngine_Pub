@@ -56,7 +56,7 @@ class Get_hist_data:
 
 if __name__ == "__main__":
     subs_path = './subscriptions.ini'
-    cal_path = './trade_calendar.csv'
+    cal_path = './download_calendar.csv'
 
     start_dt = datetime(2019, 1, 4)
     end_dt = datetime(2019, 1, 4)
