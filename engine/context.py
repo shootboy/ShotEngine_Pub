@@ -21,7 +21,9 @@ path_dict ={
     #    "1min":settings.biteCoin_data
     },
     'FUTU':{
-        '1min':settings.futures_path
+        '1min':settings.futures_path,
+        '60min':settings.futures_path,
+        '30min':settings.futures_path
     },
     'SEC':{
     #    'day':settings.security_path
@@ -90,6 +92,20 @@ class Context:
         self.df_data['dt'] = self.df_data['dt'].apply(lambda x: x.strftime('%Y%m%d'))
 
         self.df_data['transact_time'] = self.df_data['transact_time'].shift(-1)
+
+        # 指定格式
+        self.df_data['close'] = self.df_data['close'].astype(float)
+        self.df_data['open'] = self.df_data['open'].astype(float)
+        self.df_data['high'] = self.df_data['high'].astype(float)
+        self.df_data['low'] = self.df_data['low'].astype(float)
+        self.df_data['bidprice'] = self.df_data['bidprice'].astype(float)
+        self.df_data['askprice'] = self.df_data['askprice'].astype(float)
+
+        self.df_data['vol'] = self.df_data['vol'].astype(int)
+        self.df_data['bidvol'] = self.df_data['bidvol'].astype(int)
+        self.df_data['askvol'] = self.df_data['askvol'].astype(int)
+        self.df_data['amount'] = self.df_data['amount'].astype(int)
+        self.df_data['open_interest'] = self.df_data['open_interest'].astype(int)
 
         self.data_index = self.df_data.index  # datetime index for loop
         self.data_cols = self.df_data.columns  # datetime index for loop

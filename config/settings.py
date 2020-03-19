@@ -26,6 +26,7 @@ FREQ = 'tick'
 #min1
 FREQ = '1min'
 #FREQ = '60min'
+#FREQ = '30min'
 #day
 #FREQ = 'day'
 

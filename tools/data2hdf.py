@@ -61,7 +61,7 @@ class datahandle(object):
 if __name__ == "__main__":
     univ = "rb"
     exchange = "SHFE"
-    freq = "1min"
+    freq = "30min"
     path = r"C:\Users\surface\Downloads\database\rb"
     target_file = r"C:\Users\surface\Downloads\database\futures.h5"
     dd = datahandle(univ, exchange, freq, target_file)

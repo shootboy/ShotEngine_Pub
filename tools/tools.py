@@ -12,4 +12,4 @@ _days = lambda eqd: eqd.resample('D').last().dropna() # 换算成日期
 _sharpe = lambda df: (df.mean() / df.std() if df.std()!=0 else 0) * (252 ** 0.5)
 _winrate = lambda ser: len(ser[ser > 0]) * 100 / len(ser) - 1
 _gainLoss = lambda ser: abs(ser[ser > 0].mean() / ser[ser < 0].mean())
-_maxDD = lambda ser: 1*(ser / pd.expanding_max(ser) - 1).min()
+_maxDD = lambda ser: 1*(ser / ser.expanding().max()- 1).min()
