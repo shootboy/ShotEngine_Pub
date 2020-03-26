@@ -66,10 +66,11 @@ class Context:
 
         'init data'
         datalist = []
+        data = pd.HDFStore(path, mode='r')
         for date in datelist:
             key = "/%s/%s/%s" % (self.freq, self.univ, date)
-            data = pd.read_hdf(path, key=key)
-            datalist.append(data)
+            datalist.append(data.get(key))
+        data.close()
         self.df_data = pd.concat(datalist).fillna(method='ffill').reset_index()
         print(self.df_data.columns)
         if "datetime" in self.df_data.columns:

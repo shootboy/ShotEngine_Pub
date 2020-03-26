@@ -11,8 +11,8 @@ import numpy as np
 from engine.strategy import StrategyBase
 from engine.engine import *
 futures_path = r"C:\Users\surface\Downloads\database\futures.h5"
-#dd = pd.HDFStore(futures_path)
-#print(dd.keys())
+dd = pd.HDFStore(futures_path)
+print(dd.keys())
 
 def EMA(data, period=20):
     " EMA"
