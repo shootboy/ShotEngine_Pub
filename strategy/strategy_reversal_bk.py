@@ -52,16 +52,16 @@ class ST(StrategyBase):
         new_data['datetime'] = pd.to_datetime(new_data['datetime'], format="%Y-%m-%d %H:%M:%S")
         new_data = new_data.set_index('datetime')
         day_data = new_data[['close', 'tradedate']].resample("D").last()
+        #day_data = new_data[['close', 'tradedate']]
         day_data = day_data.dropna()
         day_data['log'] = np.log(day_data['close']).diff()  # resample 1日
-        day_data['annual_vol'] = day_data['log'].rolling(20).apply(Cal_ewmaVol) * np.power(365, 0.5) * 100
+        day_data['annual_vol'] = day_data['log'].rolling(3).apply(Cal_ewmaVol) * np.power(365, 0.5) * 100
         day_data['tradedate'] = day_data['tradedate'].shift(-1)
         day_data = day_data.reset_index().set_index('tradedate')
         print(day_data['annual_vol'].describe())
         self.annual_dict = day_data['annual_vol'].to_dict()
         self.tradedate = self.ctx.df_data.reset_index()['tradedate']
         self.datetime = self.ctx.df_data.reset_index()['datetime']
-        day_data.to_csv(path)
 
     def on_bar(self, pos):
         i = self.ctx.cur_bar_i
@@ -79,7 +79,7 @@ class ST(StrategyBase):
             mom = sigmoid(MOM(self.price_list)[-1])
             kurt = pd.Series(self.price_list).kurt()
             if annual_vol != None:
-                if annual_vol > 40:
+                if annual_vol > 25:
                     if mom > 0.7 and kurt > 2.5:
                         self.send_pos(-1, self.tr_day)
                         self.tr_day = dt
@@ -93,11 +93,11 @@ class ST(StrategyBase):
 # @profile
 def main():
     'setttings'
-    settings.START_DT = '20170101'
-    settings.END_DT = '20180101'
+    settings.START_DT = '20160301'
+    settings.END_DT = '20200801'
     settings.TRADE_PRICE = 'NextOpen'
     settings.SLIPPAGE = 0.0001    # 范围 从千分之一到万分之一
-    settings.UNIV = 'rb'
+    settings.UNIV = 'm'
     settings.CAPITAL = 2e7
     settings.SILENT_DAYS = 2
 

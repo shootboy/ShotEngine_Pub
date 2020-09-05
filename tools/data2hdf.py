@@ -58,11 +58,18 @@ class datahandle(object):
         resample_df.to_hdf(self.filepath, key=key, complevel=9, complib='zlib', format='table')
         del mylist
 
-if __name__ == "__main__":
-    univ = "rb"
-    exchange = "SHFE"
-    freq = "1min"
-    path = r"C:\Users\surface\Downloads\database\rb"
+def get_min_data(path, univ="rb", exchange="SHFE", freq="1min"):
     target_file = r"C:\Users\surface\Downloads\database\futures.h5"
     dd = datahandle(univ, exchange, freq, target_file)
     dd.traverseDirByOSWalk(path)
+
+if __name__ == "__main__":
+    univ = "jm"
+    #exchange = "SHFE"
+    exchange = "DCE"
+    freq = "1min"
+    #freq = "1H"
+    #freq="5min"
+    #freq="1D"
+    path = r"C:\Users\surface\Downloads\database\%s" % (univ)
+    get_min_data(path, univ, exchange, freq)

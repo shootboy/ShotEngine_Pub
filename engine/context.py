@@ -22,8 +22,9 @@ path_dict ={
     },
     'FUTU':{
         '1min':settings.futures_path,
-        '60min':settings.futures_path,
-        '30min':settings.futures_path
+        '1H':settings.futures_path,
+        '5min':settings.futures_path,
+        '1D':settings.futures_path
     },
     'SEC':{
     #    'day':settings.security_path

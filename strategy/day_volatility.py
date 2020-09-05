@@ -40,12 +40,15 @@ class ST(StrategyBase):
         day_data = new_data[['close', 'tradedate']].resample("D").last()
         day_data = day_data.dropna()
         day_data['log'] = np.log(day_data['close']).diff()  # resample 1日
-        day_data['annual_vol'] = day_data['log'].rolling(20).apply(Cal_ewmaVol) * np.power(365, 0.5) * 100
+        day_data['annual_vol_3'] = day_data['log'].rolling(3).apply(Cal_ewmaVol) * np.power(365, 0.5) * 100
+        day_data['annual_vol_7'] = day_data['log'].rolling(7).apply(Cal_ewmaVol) * np.power(365, 0.5) * 100
+        day_data['annual_vol_20'] = day_data['log'].rolling(20).apply(Cal_ewmaVol) * np.power(365, 0.5) * 100
+        day_data['annual_vol_60'] = day_data['log'].rolling(60).apply(Cal_ewmaVol) * np.power(365, 0.5) * 100
         day_data = day_data.reset_index().set_index('tradedate')
-        self.annual_dict = day_data['annual_vol'].to_dict()
+        self.annual_dict = day_data['annual_vol_20'].to_dict()
         self.tradedate = self.ctx.df_data.reset_index()['tradedate']
         self.datetime = self.ctx.df_data.reset_index()['datetime']
-        path = r'..\performance\{}_day_volatility.csv'.format('rb')
+        path = r'..\performance\{}_day_volatility.csv'.format('m')
         day_data.to_csv(path)
 
     def on_bar(self, pos):
@@ -58,11 +61,11 @@ class ST(StrategyBase):
 # @profile
 def main():
     'setttings'
-    settings.START_DT = '20160101'
-    settings.END_DT = '20200101'
+    settings.START_DT = '20160201'
+    settings.END_DT = '20200809'
     settings.TRADE_PRICE = 'NextOpen'
     settings.SLIPPAGE = 0.0001    # 范围 从千分之一到万分之一
-    settings.UNIV = 'rb'
+    settings.UNIV = 'm'
     settings.CAPITAL = 2e7
     settings.SILENT_DAYS = 2
 

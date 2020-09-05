@@ -25,10 +25,10 @@ ACCOUNT_TYPE = 'FUTU'
 FREQ = 'tick'
 #min1
 FREQ = '1min'
-#FREQ = '60min'
-#FREQ = '30min'
+#FREQ = '1H'
+#FREQ = '5min'
 #day
-#FREQ = 'day'
+#FREQ = '1D'
 
 'data'
 futures_path = r"C:\Users\surface\Downloads\database\futures.h5"
