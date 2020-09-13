@@ -52,7 +52,7 @@ class datahandle(object):
         resample_df['low'] = data[tick.last_price].resample(self.freq).min()
         resample_df['amount'] = data[tick.amount].resample(self.freq).last()
         resample_df['open_interest'] = data[tick.open_interest].resample(self.freq).last()
-
+        resample_df=resample_df.dropna()
         print(resample_df['low'].count())
 
         resample_df.to_hdf(self.filepath, key=key, complevel=9, complib='zlib', format='table')
